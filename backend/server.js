@@ -76,7 +76,7 @@ app.get('/api/posts', (req, res) => {
 });
 
 // Get a single post by ID
-app.get('/api/posts/:id', (req, res) => {
+app.get('/api/posts/:post_id', (req, res) => {
     const postId = parseInt(req.params.id);
     connection.query('SELECT * FROM posts WHERE post_id = $1', [postId], (err, results) => {
         if (err) {
@@ -93,7 +93,7 @@ app.get('/api/posts/:id', (req, res) => {
 });
 
 // Update a post by ID
-app.put('/api/posts/:id', (req, res) => {
+app.put('/api/posts/:post_id', (req, res) => {
     const postId = parseInt(req.params.id);
     const { postName, description } = req.body;
     const query = 'UPDATE posts SET postname = $1, description = $2 WHERE post_id = $3 RETURNING *';
@@ -109,7 +109,7 @@ app.put('/api/posts/:id', (req, res) => {
 });
 
 // Delete a post by ID
-app.delete('/api/posts/:id', (req, res) => {
+app.delete('/api/posts/:post_id', (req, res) => {
     const postId = parseInt(req.params.id);
     connection.query('DELETE FROM posts WHERE post_id = $1', [postId], (err, result) => {
         if (err) {
